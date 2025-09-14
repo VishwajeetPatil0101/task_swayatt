@@ -1,4 +1,4 @@
-# I have completed the task as given and hosted a app on AWS EC2 Please go through task completion file i have added all Files and Screenshots and Architecture as well 
+# I have completed the task as given and hosted a app on AWS EC2 Please go through task Performed file i have added all Files and Screenshots and Architecture as well 
 
 
 
@@ -64,3 +64,4 @@ You will see the Swayatt logo displayed in your browser.
 - **Endpoint**: GET `/` - serves the logo image
 
 - **File served**: `logoswayatt.png`
+
