@@ -1,0 +1,57 @@
+install AWS CLI to command line
+
+login with aws credentials 
+
+then save terraform file 
+
+# Specify the provider
+provider "aws" {
+  region = "us-east-1"  # Change to your preferred region
+}
+
+# Define a key pair (if you have an existing key, use it here)
+resource "aws_key_pair" "my_key" {
+  key_name   = "my-key"
+  public_key = file("~/.ssh/id_rsa.pub")  # path to your public key
+}
+
+# Security Group allowing SSH access
+resource "aws_security_group" "ssh_access" {
+  name        = "ssh_access"
+  description = "Allow SSH inbound traffic"
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # Change to your IP for better security
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+# Launch an EC2 instance
+resource "aws_instance" "ubuntu_instance" {
+  ami           = "ami-0c02fb55956c7d316"  # Ubuntu 22.04 LTS in us-east-1, change region accordingly
+  instance_type = "t2.micro"
+  key_name      = aws_key_pair.my_key.key_name
+  security_groups = [aws_security_group.ssh_access.name]
+
+  tags = {
+    Name = "Terraform-Ubuntu"
+  }
+}
+
+
+
+
+run this commands to launch ec2 instance
+
+terraform init
+terraform plan
+terraform apply

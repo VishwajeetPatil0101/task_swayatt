@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('git clone') {
+            steps {
+                sh '''
+                rm -rf swayatt
+                mkdir swayatt
+                cd swayatt
+                git clone https://github.com/VishwajeetPatil0101/task_swayatt.git
+                '''
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh '''
+                echo "🛠 Building Docker image..."
+                cd swayatt/task_swayatt
+                docker build -t swayatt:latest .
+                '''
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                sh '''
+                echo "🚀 Running container..."
+                cd swayatt/task_swayatt
+                docker run -d -p 3000:3000 swayatt:latest
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ Deployment successful! Container is running on port 3000."
+        }
+        failure {
+            echo "❌ Build/Deployment failed. Check logs!"
+        }
+    }
+}
