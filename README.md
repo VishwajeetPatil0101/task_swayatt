@@ -1,3 +1,7 @@
+# I have completed the task as given and hosted a app on AWS EC2 Please go through task completion file i have added all Files and Screenshots and Architecture as well 
+
+
+
 # Logo Server
 
 A simple Express.js web server that serves the Swayatt logo image.
@@ -58,4 +62,5 @@ You will see the Swayatt logo displayed in your browser.
 - **Framework**: Express.js
 - **Port**: 3000
 - **Endpoint**: GET `/` - serves the logo image
+
 - **File served**: `logoswayatt.png`
